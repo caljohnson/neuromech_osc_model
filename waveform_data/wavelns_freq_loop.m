@@ -11,9 +11,9 @@ global dim gridsz beta cee TF Gamma tau_f c_MA tau_m ...
 isold=0; %=1 for old W, =0 for new W
 isupstream = 1; %=1 for upstream coupling, =0 for downstream
 inphase = 0;%1=start in-phase init cond, 0= antiphase
-gammas = logspace(-3,3,10);
+Gammas = logspace(-3,3,10);
 kbs = logspace(-1, 2, 10);
-cees_ma = 1:.5:30;
+cees_ma = 5:1:30;
 
 wavelengths = zeros(size(Gammas,2),size(kbs,2),size(cees_ma,2));
 avg_pdiffs = zeros(size(Gammas,2),size(kbs,2),size(cees_ma,2));
@@ -36,7 +36,7 @@ eps = 0.1; %strength of nonlocal proprioception
 TF = 100;
 tic;    
 %mechanical params
-gamma = gammas(aa); %external drag
+gamma = Gammas(aa); %external drag
 kb = kbs(bb); %internal stiffness
 Gamma = gamma/kb;%mech coupling strength via external viscosity/internal stiff
 mu =5;
