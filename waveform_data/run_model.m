@@ -10,8 +10,5 @@ global dim gridsz TF A t0;
 y = interp1(t,y,t0);
 t = t0;
 
-%get curvature
-Kappa = A*y(:,1:gridsz*dim+2)';
-
 end
 

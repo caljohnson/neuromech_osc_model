@@ -26,8 +26,8 @@ set(gcf, 'Units', 'Normalized', 'OuterPosition', [0, 0.04, 1, 0.96]);
 set(gca, 'FontSize', 30); 
 c = colorbar; c.Label.String = 'Curvature';
 colormap(fireice);
-caxis([-5 5]);
-c.Limits = [-3 3];
+caxis([-2 2]);
+c.Limits = [-1 1];
 %save plot
 if saveplot==1
     freqplot_title = strcat('freqplot/Gamma_',num2str(Gamma,'%.1e'),...

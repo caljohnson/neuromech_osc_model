@@ -15,7 +15,7 @@ end
 
 if inphase==1
     %IC - each module in-phase
-    y_0 = zeros(gridsz*dim+2,1);
+    K_0 = zeros(gridsz*dim,1);
     AV_0 = zeros(dim,1);
     AD_0 = zeros(dim,1);
     volt_V_0  = zeros(dim,1);
@@ -28,7 +28,7 @@ if inphase==1
     end
 else
     %IC - antiphase alternating between modules (internally)
-    y_0 = zeros(gridsz*dim+2,1);
+    K_0 = zeros(gridsz*dim,1);
     AV_0 = zeros(dim,1);
     AD_0 = zeros(dim,1);
     volt_V_0  = zeros(dim,1);
@@ -49,7 +49,7 @@ else
 end
 
 %initial condition
-init_cond = [y_0; AV_0; AD_0; volt_V_0; volt_D_0;];
+init_cond = [K_0; AV_0; AD_0; volt_V_0; volt_D_0;];
 
 end
 

@@ -20,7 +20,8 @@ global t_f t_n t_m c I dt a
 
 
 cees = 1:0.25:10;
-periods = zeros(size(cees,2));
+periods = zeros(size(cees,2),1);
+max_amp = zeros(size(cees,2),1);
 
 for ll = 1:size(cees,2)
 
@@ -42,7 +43,7 @@ dt0=1e-3;
 
 % ----  I. FIND PERIODIC ORBIT  ----
 
-nmax=1e8;  % maximal number of time steps in one period
+nmax=1e6;  % maximal number of time steps in one period
 Kmark=0.1;  % initial and final curvature (K) in periodic orbit (arbitrary!)
 
 dt=dt0;
@@ -84,6 +85,13 @@ v=v2;
 % OUTPUT:   v(1:ii,1:nv) contains periodic orbit
 %           (ii-1)*dt=~period of orbit
 periods(ll) = (ii-1)*dt;
+max_amp(ll) = max(abs(v(:,1)));
 end
 
-save('NM_periods.mat', periods)
+% save('NM_periods.mat', 'periods', 'max_amp', 'cees')
+
+figure(1); clf;
+subplot(2,1,1); plot(cees, periods, 'o');
+xlabel('c'); ylabel('period');
+subplot(2,1,2); plot(cees, max_amp, 'o');
+xlabel('c'); ylabel('max \kappa');

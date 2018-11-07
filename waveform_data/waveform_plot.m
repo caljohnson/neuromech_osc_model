@@ -1,9 +1,11 @@
-function [  ] = waveform_plot( y, period_cycle )
+function [  ] = waveform_plot( K, period_cycle )
 %waveform_plot - make a couple plots of different wave positions
 % for the body position over a half-period
  
-global dim gridsz Gamma
+global dim gridsz Gamma A
 
+
+y = (A\K(:,1:gridsz*dim)')';
 j = 1;
 figure(2); clf;
 C = linspecer(8); 

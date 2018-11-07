@@ -1,25 +1,27 @@
-%wavelns_freq_test.m
-% test cases for wavelength, frequency plots vs various parameters
+%wavelns_freq_loop.m
+% BIG PARAMETER LOOP to collect data on waveform and freq of traveling wave
 %simulates mechanical coupling on discrete neuron-system chain
 % with beam equation model, plus extra neural coupling
 % and with "nondimensionalized" parameters
-% with fine mechanical body grid and thresholded muscle activity
 
-global dim gridsz beta cee eps TF Gamma tau_f c_MA tau_m ...
-    delX A S Pa tau_n a I max_step t0
+global dim gridsz beta cee TF Gamma tau_f c_MA tau_m ...
+    delX A S Pa tau_n a I max_step t0 eps
 
-%TEST PARAMS
+%PARAMS
 isold=0; %=1 for old W, =0 for new W
 isupstream = 1; %=1 for upstream coupling, =0 for downstream
 inphase = 0;%1=start in-phase init cond, 0= antiphase
-gammas = 1e-1;
-kb = 1e1;
-cees_ma = 5; %1:.5:3';
+gammas = logspace(-3,3,10);
+kbs = logspace(-1, 2, 10);
+cees_ma = 1:.5:30;
 
-wavelengths = zeros(size(Gammas,1),size(cees_ma,1));
-freqs = zeros(size(Gammas,1),size(cees_ma,1));
-for aa = 1:size(Gammas,1)
-    for bb = 1:size(cees_ma,1)
+wavelengths = zeros(size(Gammas,2),size(kbs,2),size(cees_ma,2));
+avg_pdiffs= zeros(size(Gammas,2),size(kbs,2),size(cees_ma,2));;
+freqs = zeros(size(Gammas,2),size(kbs,2),size(cees_ma,2));
+
+for aa = 1:size(Gammas,2)
+    for bb = 1:size(kbs,2)
+        for cc = 1:size(cees_ma,2)
 %chain dimension  - number of oscillators
 dim = 6;
 %improved mechanics factor - gridsize
@@ -34,11 +36,12 @@ eps = 0.1; %strength of nonlocal proprioception
 TF = 100;
 tic;    
 %mechanical params
-gamma = gammas(aa); %mech coupling strength via external viscosity/internal visc
-Gamma = gamma/kb;
-mu = 5;
+gamma = gammas(aa); %external drag
+kb = kbs(bb); %internal stiffness
+Gamma = gamma/kb;%mech coupling strength via external viscosity/internal stiff
+mu =5;
 tau_f = mu/kb; %mu/kb - internal mechanical timescale - internal viscosity/stiffness
-c_MA = cees_ma(bb); %muscle activity mechanical feedback strength = 1/(2adelX) * neural feedback strengths
+c_MA = cees_ma(cc); %muscle activity mechanical feedback strength = 1/(2adelX) * neural feedback strengths
 %timescale of muscle activation
 tau_m = 1;
 
@@ -120,37 +123,26 @@ Kappa = y(:, 1:gridsz*dim)';
 % [period_cycle, avg_phasediff, wavelength, freq] = compute_phase_lags(Kappa, 1)
 % pause(0.1);
 
-    wavelengths(aa,bb) = wavelength
-    avg_pdiffs(aa,bb) = avg_phasediff;
-    freqs(aa, bb) = freq
+    wavelengths(aa,bb,cc) = wavelength
+    avg_pdiffs(aa,bb,cc) = avg_phasediff;
+    freqs(aa, bb,cc) = freq
+        end
     end
 end
-
-% %freq plot
-freq_plot(Kappa);
-% 
-% %waveform plot
-waveform_plot(y, period_cycle);
+data_title = strcat('wavelns_freq_loop_data/eps_', num2str(eps),'.mat');
+save(data_title);
 
 
-% data_title = strcat('wavedata_gamma_tauf_loop_finemech_muscthresh_newW_eps', num2str(eps),'.mat');
-% save(data_title);
-
-% %plot stuff
+%plot stuff
 % figure(1); clf;
 % plot(log10(Gammas), wavelengths, '-o', 'MarkerSize', 12);
-% % lg_labels1 = {size(taufs,1)};
-% % for ii=1:size(taufs,1)
-% %     lg_labels1(ii) = {strcat('\tau_f = ', num2str(taufs(ii)))};
-% % end
-% % legend(lg_labels1);
+% lg_labels1 = {size(taufs,1)};
+% for ii=1:size(taufs,1)
+%     lg_labels1(ii) = {strcat('\tau_f = ', num2str(taufs(ii)))};
+% end
+% legend(lg_labels1);
 % xlabel('log_{10}\Gamma'); ylabel('Wavelength');
-% 
-% 
-% figure(2); clf;
-% plot(log10(Gammas), avg_pdiffs, '-o', 'MarkerSize', 12);
-% xlabel('log_{10}\Gamma'); ylabel('Avg. Phase Diffs');
-% % 
+
 % figure(2); clf;
 % plot(taufs, freqs, '-o', 'MarkerSize', 12);
 % lg_labels2 = {size(Gammas,1)};
@@ -159,23 +151,6 @@ waveform_plot(y, period_cycle);
 % end
 % legend(lg_labels2);
 % xlabel('\tau_f'); ylabel('frequency');
-% 
-% figure(1); clf;
-% lg_labels = {8};
-% ii=1;
-% for bb = 1:size(isold,1)
-%         for cc = 1:size(isupstream,1)
-%             for dd = 1:size(inphase,1)
-%                 plot(log10(Gammas), wavelengths(:,bb,cc,dd), '-o', 'MarkerSize', 12); hold on
-%                 lg_labels(ii) = {strcat('is old = ', num2str(isold(bb)), ...
-%                     ', is upstream = ', num2str(isupstream(cc)), ...
-%                     ', starts in-phase = ', num2str(inphase(dd)))};
-%                 ii = ii+1;
-%             end
-%         end
-% end
-% legend(lg_labels);
-% xlabel('log_{10}\Gamma'); ylabel('Wavelength'); title(strcat('\epsilon = ', num2str(eps)));
-%  
-% figure(2); clf;
-% plot(log10(Gammas), wavelengths(:,bb,cc,dd), '-o', 'MarkerSize', 12); hold on
+
+
+
