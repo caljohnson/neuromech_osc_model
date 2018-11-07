@@ -13,24 +13,18 @@ isold=0; %=1 for old W, =0 for new W
 isupstream = 1; %=1 for upstream coupling, =0 for downstream
 inphase = 0;%1=start in-phase init cond, 0= antiphase
 Gammas = 1e-8;
-taufs = 5;
-% Gammas = logspace(0,2,20)';
-% Gammas = 1e4*0.027825594022071;
-% taufs = [2 3 4 5 8 10 15 20 50 100]';
+cees_ma = 1; %1:.5:3';
 
-wavelengths = zeros(size(Gammas,1),size(taufs,1));
-freqs = zeros(size(Gammas,1),size(taufs,1));
+wavelengths = zeros(size(Gammas,1),size(cees_ma,1));
+freqs = zeros(size(Gammas,1),size(cees_ma,1));
 for aa = 1:size(Gammas,1)
-    for bb = 1:size(taufs,1)
-
-
+    for bb = 1:size(cees_ma,1)
 %chain dimension  - number of oscillators
 dim = 6;
 %improved mechanics factor - gridsize
 gridsz = 10;
 
 %proprioception parameters
-% alpha = alphas(aa); %ratio of nonlocal to local coupling
 beta = 0; %ratio of left-right asymmetry in proprioception
 cee = 1; %strength of local proprioception
 eps = 0; %strength of nonlocal proprioception
@@ -40,8 +34,8 @@ TF = 50;
 tic;    
 %mechanical params
 Gamma = Gammas(aa); %mech coupling strength via external viscosity/internal visc
-tau_f = taufs(bb); %mu/k - internal mechanical timescale - internal viscosity/stiffness
-c_MA = 1; %muscle activity mechanical feedback strength = 1/(2adelX) * neural feedback strengths
+tau_f = 5; %mu/k - internal mechanical timescale - internal viscosity/stiffness
+c_MA = cees_ma(bb); %muscle activity mechanical feedback strength = 1/(2adelX) * neural feedback strengths
 %timescale of muscle activation
 tau_m = 1;
 
