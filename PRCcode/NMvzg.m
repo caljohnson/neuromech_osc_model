@@ -14,7 +14,7 @@
 %   file "NMstep.m" contains FS model equations.
 %   file "NMadj.m" contains adjoint equations for linearized 
 %         neuromechanical oscillator module model equations.
-%   file "gunNM.m" calculates G-function.
+% 
 %
 %  CJ 9/29/18
 % ==================================================================
