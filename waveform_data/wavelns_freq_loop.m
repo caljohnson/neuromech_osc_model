@@ -123,9 +123,9 @@ Kappa = y(:, 1:gridsz*dim)';
 % [period_cycle, avg_phasediff, wavelength, freq] = compute_phase_lags(Kappa, 1)
 % pause(0.1);
 
-    wavelengths(aa,bb,cc) = wavelength
+    wavelengths(aa,bb,cc) = wavelength;
     avg_pdiffs(aa,bb,cc) = avg_phasediff;
-    freqs(aa, bb,cc) = freq
+    freqs(aa, bb,cc) = freq;
         end
     end
 end
