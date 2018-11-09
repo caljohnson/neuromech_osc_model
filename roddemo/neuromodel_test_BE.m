@@ -117,4 +117,5 @@ pcolor(T(1:end-1),s,Kt); shading flat;
 figure(3)
 plot(T,mean(Kt(J,:)),T,mean(Kt(Jp,:)));
 
+save('test.mat');
 
