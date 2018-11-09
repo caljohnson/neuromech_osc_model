@@ -1,11 +1,16 @@
 global t_f t_n t_m c I dt a
 
 cees = 2:0.125:3;
-
+tfs = 1:0.5:10;
+% for ll = 1:size(tfs,2)
 for ll = 1:size(cees,2)
 % -- NM MODEL PARAMETERS --
-t_f=5; t_n = 0.1; t_m = 1; %timescales for length, neural, and muscule activity
-c = cees(ll); I = 0; %total feedback strength, AVB input bias
+% t_f=tfs(ll); 
+t_f = 5;
+t_n = 0.1; t_m = 1; %timescales for length, neural, and muscule activity
+c = cees(ll); 
+% c = 5;
+I = 0; %total feedback strength, AVB input bias
 a = 1;
 nv=5; % number of variables in model - 2 neurons, 2 muscles, 1 curvature
 
@@ -103,13 +108,16 @@ z=z/sc0;
 %
 
 %Plot PRCs
-figure(ll); clf; xlim([0, ii*dt]); suptitle(['PRCs, c = ' num2str(c)]);
+figure(ll); clf; xlim([0, ii*dt]); 
+suptitle(['PRCs, c = ' num2str(c)]);
+% suptitle(['PRCs, \tau_f = ' num2str(t_f)]);
 subplot(3,1,1); plot(z(:,1), 'Linewidth', 4); ylabel('\kappa');
 subplot(3,1,2); plot(z(:,2), 'g', 'Linewidth', 4); hold on; plot(z(:,3), 'r','Linewidth', 4); 
 ylabel('V'); legend('V', 'D');
 subplot(3,1,3); plot(z(:,4), 'g','Linewidth', 4); hold on; plot(z(:,5), 'r','Linewidth', 4); 
 ylabel('A'); legend('V', 'D');
 saveas(figure(ll), ['compare_prc_plots/PRCs_c_' num2str(c) '.png']);
+% saveas(figure(ll), ['compare_prc_plots/PRCs_tauf_' num2str(t_f) '.png']);
 
 % OUTPUT:   z(1:ii,1:nv) contains iPRC
 
@@ -166,6 +174,8 @@ legend('mechanical','proprioceptive','"zero"');
 xlabel('time(ms)'); 
 title(['G-functions for NM paired-oscillator model, c = ' num2str(c)]);
 saveas(figure(ll), ['compare_g_fns/g_fns_c' num2str(c) '.png']);
+% title(['G-functions for NM paired-oscillator model, \tau_f = ' num2str(t_f)]);
+% saveas(figure(ll), ['compare_g_fns/g_fns_tauf_' num2str(t_f) '.png']);
 
 
 
