@@ -30,7 +30,7 @@ Pa = sparse(rowinds, colinds, (1/no_mod_points).*ones(Ns,1));
 
 
 Tper = 1;             % period
-Nper = 5;            % number of periods to simulate
+Nper = 100;            % number of periods to simulate
 Tend = Nper*Tper;     % end of simulation
 Nt_per_T = 100;       % time steps per period
 dt   = Tper/Nt_per_T; % time steps 
@@ -91,31 +91,31 @@ for k =1:Nt
 end
 toc
 
-% make a movie
-%
-%figure(1);
-%J = find( s<0.5);
-%Jp = find( s>=0.5);
-%Kt = zeros(Ns,Nt);
-
-%for k=1:Nt
- % plot(Xt(:,1,k),Xt(:,2,k),'b.-',Xt(J,1,k),Xt(J,2,k),'ro');
-  %axis([-0.7 0.7 -0.5 0.5]);
-  %pause(0.01);
-  
- % Kt(:,k) = curvature(Xt(:,1:2,k),ds);
-    
-%end
-
-% plot the kymograph
-%
-%figure(2);
-%pcolor(T(1:end-1),s,Kt); shading flat;
-
+% % make a movie
+% 
+% figure(1);
+% J = find( s<0.5);
+% Jp = find( s>=0.5);
+% Kt = zeros(Ns,Nt);
+% 
+% for k=1:Nt
+%  plot(Xt(:,1,k),Xt(:,2,k),'b.-',Xt(J,1,k),Xt(J,2,k),'b.-');
+%   axis([-0.7 0.7 -0.5 0.5]);
+%   pause(0.01);
+%   
+%  Kt(:,k) = curvature(Xt(:,1:2,k),ds);
+%     
+% end
+% 
+% % plot the kymograph
+% 
+% figure(2);
+% pcolor(T(1:end-1),s,Kt); shading flat;
+% 
 % plot the mean curvature in the two segments
-%
-%figure(3)
-%plot(T,mean(Kt(J,:)),T,mean(Kt(Jp,:)));
+% 
+% figure(3)
+% plot(T,mean(Kt(J,:)),T,mean(Kt(Jp,:)));
 
 save('test.mat');
 

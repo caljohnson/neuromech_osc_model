@@ -12,7 +12,7 @@ global dim gridsz beta cee eps TF Gamma tau_f c_MA tau_m ...
 isold=0; %=1 for old W, =0 for new W
 isupstream = 1; %=1 for upstream coupling, =0 for downstream
 inphase = 0;%1=start in-phase init cond, 0= antiphase
-gammas = 1e1;
+gammas = 1e-1;
 kb = 1;
 cees_ma = 10; %1:.5:3';
 
