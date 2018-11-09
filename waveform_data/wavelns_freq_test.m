@@ -12,13 +12,13 @@ global dim gridsz beta cee eps TF Gamma tau_f c_MA tau_m ...
 isold=0; %=1 for old W, =0 for new W
 isupstream = 1; %=1 for upstream coupling, =0 for downstream
 inphase = 0;%1=start in-phase init cond, 0= antiphase
-gammas = 1e-3;
-kb = 1e-1;
-cees_ma = 5; %1:.5:3';
+gammas = 1e1;
+kb = 1;
+cees_ma = 10; %1:.5:3';
 
-wavelengths = zeros(size(Gammas,1),size(cees_ma,1));
-freqs = zeros(size(Gammas,1),size(cees_ma,1));
-for aa = 1:size(Gammas,1)
+wavelengths = zeros(size(gammas,1),size(cees_ma,1));
+freqs = zeros(size(gammas,1),size(cees_ma,1));
+for aa = 1:size(gammas,1)
     for bb = 1:size(cees_ma,1)
 %chain dimension  - number of oscillators
 dim = 6;
@@ -28,7 +28,7 @@ gridsz = 10;
 %proprioception parameters
 beta = 0; %ratio of left-right asymmetry in proprioception
 cee = 1; %strength of local proprioception
-eps = 0.1; %strength of nonlocal proprioception
+eps = 0; %strength of nonlocal proprioception
 
 %simulation runtime
 TF = 100;

@@ -21,10 +21,10 @@ if inphase==1
     volt_V_0  = zeros(dim,1);
     volt_D_0 = zeros(dim,1);
     for ii = 1:dim
-            AV_0(ii) = cycle(1,2);
-            AD_0(ii) = cycle(1,3);
-            volt_V_0(ii) = cycle(1,4);
-            volt_D_0(ii) = cycle(1,5);
+            AV_0(ii) = cycle(1,4);
+            AD_0(ii) = cycle(1,5);
+            volt_V_0(ii) = cycle(1,2);
+            volt_D_0(ii) = cycle(1,3);
     end
 else
     %IC - antiphase alternating between modules (internally)
@@ -35,15 +35,15 @@ else
     volt_D_0 = zeros(dim,1);
     for ii = 1:dim
         if mod(ii,2)==0
-            AV_0(ii) = cycle(1,2);
-            AD_0(ii) = cycle(1,3);
-            volt_V_0(ii) = cycle(1,4);
-            volt_D_0(ii) = cycle(1,5);
+            AV_0(ii) = cycle(1,4);
+            AD_0(ii) = cycle(1,5);
+            volt_V_0(ii) = cycle(1,2);
+            volt_D_0(ii) = cycle(1,3);
         else
-            AV_0(ii) = cycle(round(T_i/2),2);
-            AD_0(ii) = cycle(round(T_i/2),3);
-            volt_V_0(ii) = cycle(round(T_i/2),4);
-            volt_D_0(ii) = cycle(round(T_i/2),5);
+            AV_0(ii) = cycle(round(T_i/2),4);
+            AD_0(ii) = cycle(round(T_i/2),5);
+            volt_V_0(ii) = cycle(round(T_i/2),2);
+            volt_D_0(ii) = cycle(round(T_i/2),3);
         end
     end
 end

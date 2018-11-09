@@ -3,7 +3,7 @@ function [ T, cycle, tees] =get_period_single_oscillator(ploton)
 %gets the period and limit cycle of the single, uncoupled oscillator
 %with continuous neural dynamics
 
-global dt t_f tau_f t_n tau_n t_m tau_m c c_MA
+global dt t_f tau_f t_n tau_n t_m tau_m c c_MA a
 
 c = c_MA;
 t_n = tau_n;
