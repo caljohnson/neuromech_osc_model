@@ -14,9 +14,8 @@ ks = 1e4;             % stretching stiffness
 kb = 1e-2;              % bending stiffness
 
 
-
 %module stuff
-c = 5; %module feedback strength
+c = 30; %module feedback strength
 no_mods = 6; %number of neuromechanical module units
 no_mod_points = Ns/no_mods; %number of body points per unit 
 %spread operator
