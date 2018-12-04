@@ -25,7 +25,7 @@ global t_f t_n t_m c I dt a thresholding_on
 
 % -- NM MODEL PARAMETERS --
 t_f=5; t_n = 0.1; t_m = 1; %timescales for length, neural, and muscule activity
-c = 10; I = 0; %total feedback strength, AVB input bias
+c = 2; I = 0; %total feedback strength, AVB input bias
 a = 1;
 nv=5; % number of variables in model - 2 neurons, 2 muscles, 1 curvature
 thresholding_on = 1;
