@@ -16,7 +16,7 @@
 
 
 clear
-global t_f t_n t_m c I dt a
+global t_f t_n t_m c I dt a thresholding_on
 
 
 cees = 1:0.25:10;

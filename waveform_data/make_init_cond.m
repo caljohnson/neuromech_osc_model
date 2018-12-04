@@ -21,6 +21,7 @@ if inphase==1
     volt_V_0  = zeros(dim,1);
     volt_D_0 = zeros(dim,1);
     for ii = 1:dim
+            K_0(1+(ii-1)*gridsz:ii*gridsz) = cycle(1,1);
             AV_0(ii) = cycle(1,4);
             AD_0(ii) = cycle(1,5);
             volt_V_0(ii) = cycle(1,2);
@@ -35,11 +36,13 @@ else
     volt_D_0 = zeros(dim,1);
     for ii = 1:dim
         if mod(ii,2)==0
+            K_0(1+(ii-1)*gridsz:ii*gridsz) = cycle(1,1);
             AV_0(ii) = cycle(1,4);
             AD_0(ii) = cycle(1,5);
             volt_V_0(ii) = cycle(1,2);
             volt_D_0(ii) = cycle(1,3);
         else
+            K_0(1+(ii-1)*gridsz:ii*gridsz)  = cycle(round(T_i/2),1);
             AV_0(ii) = cycle(round(T_i/2),4);
             AD_0(ii) = cycle(round(T_i/2),5);
             volt_V_0(ii) = cycle(round(T_i/2),2);

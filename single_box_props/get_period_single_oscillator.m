@@ -3,14 +3,12 @@ function [ T, cycle, tees] =get_period_single_oscillator(ploton)
 %gets the period and limit cycle of the single, uncoupled oscillator
 %with continuous neural dynamics
 
-global dt t_f tau_f t_n tau_n t_m tau_m c c_MA a
+global dt t_f tau_f t_n tau_n t_m tau_m c c_MA a thresholding
 
 c = c_MA;
 t_n = tau_n;
 t_f = tau_f;
 t_m = tau_m;
-
-addpath('../PRCcode/');
 
 %if no ploton command passed, default to 0
 if nargin < 1
@@ -22,12 +20,12 @@ nv = 5;
 nmax=1e8;  % maximal number of time steps in one period
 Kmark=0.1;  % initial and final curvature (K) in periodic orbit (arbitrary!)
 
-dt0=1e-4;
+dt0=1e-3;
 dt = dt0;
 x0(1:nv)=[0;1;-1;0;0]; % initial state (K,V1,V2,A1,A2)
 
 dx=10000.0;     
-dxcrit=1e-4; % precision for periodic orbit
+dxcrit=1e-5; % precision for periodic orbit
 
 while (dx>dxcrit) 
 % iterate until periodic orbit found to desired precision (dxcrit).

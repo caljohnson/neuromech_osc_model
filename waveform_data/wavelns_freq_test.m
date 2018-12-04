@@ -6,24 +6,25 @@
 % with fine mechanical body grid and thresholded muscle activity
 
 global dim gridsz beta cee eps TF Gamma tau_f c_MA tau_m ...
-    delX A S Pa tau_n a I max_step t0
+    delX A S Pa tau_n a I max_step t0 thresholding_on
 
 %TEST PARAMS
 isold=0; %=1 for old W, =0 for new W
 isupstream = 1; %=1 for upstream coupling, =0 for downstream
 inphase = 0;%1=start in-phase init cond, 0= antiphase
-gammas = 1e-1;
+gammas = 1e3;
 kb = 1;
-cees_ma = 10; %1:.5:3';
+cees_ma = 1.5; %1:.5:3';
+thresholding_on = 1;
 
 wavelengths = zeros(size(gammas,1),size(cees_ma,1));
 freqs = zeros(size(gammas,1),size(cees_ma,1));
 for aa = 1:size(gammas,1)
     for bb = 1:size(cees_ma,1)
 %chain dimension  - number of oscillators
-dim = 6;
+dim = 2;
 %improved mechanics factor - gridsize
-gridsz = 10;
+gridsz = 1;
 
 %proprioception parameters
 beta = 0; %ratio of left-right asymmetry in proprioception
@@ -31,7 +32,7 @@ cee = 1; %strength of local proprioception
 eps = 0; %strength of nonlocal proprioception
 
 %simulation runtime
-TF = 100;
+TF = 600;
 tic;    
 %mechanical params
 gamma = gammas(aa); %mech coupling strength via external viscosity/internal visc
@@ -45,7 +46,7 @@ tau_m = 1;
 % % Mechanically coupled system 
 %make 2nd order centered difference operator A 
 %discrete beam PDE matrix with free ends
-delX = 1/(gridsz*dim+1);
+delX = 1/(gridsz*dim);
 e = ones(gridsz*dim,1);
 % A = (1/delX^2).*spdiags([e -2*e e], [0 1 2], dim, dim+2);
 A = (1/delX^2).*spdiags([e -2*e e], [0 1 2], gridsz*dim, gridsz*dim+2);
@@ -56,7 +57,11 @@ ey = speye(gridsz*dim,gridsz*dim);
 %mechanical PDE (gamma/kb I + mu/kb AA')k_t = -AA'(k + cM)
 %Gamma = gamma/kb, tauf = mu/kb
 RHS_matrix = (Gamma*ey+tau_f*(A*A'))\(-(A*A'));
-K_dot = @(t,K, AV, AD) RHS_matrix*(K + c_MA.*(tanh(AV-2)-tanh(AD-2)));
+if thresholding_on == 1
+    K_dot = @(t,K, AV, AD) RHS_matrix*(K + c_MA.*(tanh(AV-2)-tanh(AD-2)));
+else
+    K_dot = @(t,K, AV, AD) RHS_matrix*(K + c_MA.*(AV-AD));
+end
 
 %spread operator
 rowinds = 1:gridsz*dim;
@@ -72,7 +77,7 @@ Pa = sparse(rowinds, colinds, (1/gridsz).*ones(gridsz*dim,1));
 W = make_W_connectivity(isold, isupstream);
 
 %continuous voltage model
-tau_n = 0.1;
+tau_n = 0.001;
 a = 1;
 I = 0;
 volt_V_dot = @(t,Kappa,volt_V) (1/tau_n).*(volt_V - a.*volt_V.^3 + I + W*Kappa);
@@ -86,7 +91,7 @@ AD_dot = @(t,volt_V, volt_D, A) (1/tau_m).*(volt_D - volt_V - A);
 %pick initial conditions from cycle
 %simulate single-oscillator to get limit cycle and pick initial phases
 [ T, cycle, tees ] = get_period_single_oscillator();
-T_i = size(tees,1); %get index-length of cycle period
+T_i = size(tees,2); %get index-length of cycle period
 
 init_cond = make_init_cond(cycle, T_i, inphase);
 
@@ -115,6 +120,9 @@ toc
 
 Kappa = y(:, 1:gridsz*dim)';
 
+% %freq plot
+freq_plot(Kappa);
+
 %compute waveform info and plot
 [period_cycle, avg_phasediff, wavelength, freq] = compute_phase_lags(Kappa, 0);
 % [period_cycle, avg_phasediff, wavelength, freq] = compute_phase_lags(Kappa, 1)
@@ -126,12 +134,12 @@ Kappa = y(:, 1:gridsz*dim)';
     end
 end
 
-% %freq plot
-freq_plot(Kappa);
-% 
+% % %freq plot
+% freq_plot(Kappa);
+% % 
 % %waveform plot
 waveform_plot(y, period_cycle);
-
+% 
 
 % data_title = strcat('wavedata_gamma_tauf_loop_finemech_muscthresh_newW_eps', num2str(eps),'.mat');
 % save(data_title);

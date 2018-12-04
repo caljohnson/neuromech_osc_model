@@ -1,8 +1,8 @@
-function [ y,t, Kappa ] = run_model( ode_RHS, init_cond )
+function [ y,t ] = run_model( ode_RHS, init_cond )
 %run_model Runs the model simulation
 %   for a given ode RHS and init cond
 
-global dim gridsz TF A t0;
+global TF t0;
 
 [t,y] = ode23(ode_RHS,[0,TF], init_cond);
 

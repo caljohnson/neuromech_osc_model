@@ -1,7 +1,13 @@
-global t_f t_n t_m c I dt a
+%Compare PRCs
+% computes many cycles and PRCs for the neuromechanical oscillator for
+% different parameters
 
-cees = 2:0.125:3;
-tfs = 1:0.5:10;
+global t_f t_n t_m c I dt a thresholding_on
+
+thresholding_on = 0;
+% cees = 2:0.125:3;
+% tfs = 1:0.5:10;
+cees = 10;
 % for ll = 1:size(tfs,2)
 for ll = 1:size(cees,2)
 % -- NM MODEL PARAMETERS --
@@ -65,6 +71,20 @@ v2(1:ii-imin+1,1:nv)=v(imin:ii,1:nv);
 v2(ii-imin+2:ii,1:nv)=v(1:imin-1,1:nv);
 v=v2;
 
+%display result
+figure(3); clf;
+ xlim([0, ii*dt]);
+subplot(4,1,1); plot(v(:,1),'Linewidth', 4); ylabel('\kappa');
+subplot(4,1,2); plot(v(:,2), 'g','Linewidth', 4); hold on; plot(v(:,3), 'r','Linewidth', 4); 
+ylabel('V'); legend('V', 'D');
+subplot(4,1,3); plot(v(:,4), 'g','Linewidth', 4); hold on; plot(v(:,5), 'r','Linewidth', 4); 
+ylabel('A'); legend('V', 'D');
+% subplot(4,1,4); plot(tanh(v(:,4)-2)+1, 'g','Linewidth', 4); hold on; plot(tanh(v(:,5)-2)+1, 'r','Linewidth', 4); 
+% ylabel('\sigma(A)'); legend('V', 'D');
+subplot(4,1,4); plot(dv(:,1), 'Linewidth', 4); ylabel('\kappa prime');
+suptitle('Cycle timetraces');
+
+
 % OUTPUT:   v(1:ii,1:nv) contains periodic orbit
 %           (ii-1)*dt=~period of orbit
 
@@ -72,7 +92,7 @@ v=v2;
 % ----  II.  CALCULATE iPRC ---- 
 %  by solving adjoint of linearized problem (backwards)
 
-y0= ones(nv,1); %initial condition 
+y0= 0.1*ones(nv,1); %initial condition 
 dy = 10000;
 
 while (dy>dxcrit) 
@@ -116,7 +136,7 @@ subplot(3,1,2); plot(z(:,2), 'g', 'Linewidth', 4); hold on; plot(z(:,3), 'r','Li
 ylabel('V'); legend('V', 'D');
 subplot(3,1,3); plot(z(:,4), 'g','Linewidth', 4); hold on; plot(z(:,5), 'r','Linewidth', 4); 
 ylabel('A'); legend('V', 'D');
-saveas(figure(ll), ['compare_prc_plots/PRCs_c_' num2str(c) '.png']);
+% saveas(figure(ll), ['compare_prc_plots/PRCs_c_' num2str(c) '.png']);
 % saveas(figure(ll), ['compare_prc_plots/PRCs_tauf_' num2str(t_f) '.png']);
 
 % OUTPUT:   z(1:ii,1:nv) contains iPRC
@@ -134,7 +154,7 @@ dim = 2; %pair of 2 units
 A = spdiags([ones(dim,1) -2*ones(dim,1) ones(dim,1)], [0 1 2], dim, dim+2);
 B = inv(full(A*A'));
 %K' from limit cycle
-Kp = dv;
+Kp = dv(:,1)';
 Kp(ii+1) = Kp(1);
 %mech coupling terms
 % e = (A*A')\(gamma*Kp);
@@ -164,7 +184,7 @@ ming1 = min(abs(g1));
 %prop coupling is not
 % g2 =(h1p-h2p);
 minh1p = min(abs(h1p));
-figure(ll); clf;
+figure(ll+1); clf;
 plot(t(1:ii),g1,'r', 'linewidth',2); hold on; 
 plot(t(1:ii),h1p,'g', 'linewidth',2);
 plot([0,p],[0,0],'k:','linewidth',2);
@@ -173,7 +193,7 @@ plot(t(abs(h1p)<=1e-4),0*t(abs(h1p)<=1e-4),'ko','Markersize',10);
 legend('mechanical','proprioceptive','"zero"');
 xlabel('time(ms)'); 
 title(['G-functions for NM paired-oscillator model, c = ' num2str(c)]);
-saveas(figure(ll), ['compare_g_fns/g_fns_c' num2str(c) '.png']);
+% saveas(figure(ll), ['compare_g_fns/g_fns_c' num2str(c) '.png']);
 % title(['G-functions for NM paired-oscillator model, \tau_f = ' num2str(t_f)]);
 % saveas(figure(ll), ['compare_g_fns/g_fns_tauf_' num2str(t_f) '.png']);
 

@@ -31,7 +31,7 @@ period_cycle = abs(locs(sorted_locs(1))-locs(sorted_locs(2)));
 
 %compute phase differences
 phase_diff = zeros(dim,1);
-j=1;
+winding_no = 0;
 for ii=2:dim
    %compute cross-correlation between oscillator ii and 1 
    cross_cor = xcorr(Kappa(ii,:), Kappa(1,:));
@@ -39,18 +39,15 @@ for ii=2:dim
    [~,I_new] = max(cross_cor);
    %phase difference is peak-peak distance / cycle period
    phase_diff(ii) = (I_new-I_control)/period_cycle;
+   phase_diff(ii) = phase_diff(ii) + winding_no;  %add winding number
    
    %shift phase differences so that negative phase differences are phase
    %advances, keep track of winding number
-%    if phase_diff(ii) <0
-%        phase_diff(ii) = phase_diff(ii) + 1;
-%    end
    if phase_diff(ii) < phase_diff(ii-1)
-       phase_diff(ii) = phase_diff(ii) + j;
+       phase_diff(ii) = phase_diff(ii) + 1;
+       winding_no = winding_no+1; %update winding number
    end
-   if phase_diff(ii) > j %update winding number
-       j = j+1;
-   end
+  
 end
 phase_diff
 if ploton==1

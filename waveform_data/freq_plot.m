@@ -17,7 +17,8 @@ xlabel('module #', 'FontSize',30); ylabel('time', 'FontSize',30);
 figtitle = ['\epsilon= ', num2str(eps), ...
     ', \beta= ', num2str(beta), ', \Gamma = ', num2str(Gamma,'%.1e')];
 title(figtitle, 'FontSize',30);
-xlim([1 gridsz*dim+1]); ylim([round(TF/max_step/2) round(TF/max_step)]);
+xlim([1 gridsz*dim+1]); %ylim([round(TF/max_step/2) round(TF/max_step)]);
+ylim([0 round(TF/max_step)]);
 set(gca, 'Xtick', gridsz*(0:dim-1)+gridsz/2);
 set(gca, 'XtickLabel', strsplit(num2str(1:dim)));
 set(gcf,'color','white')
