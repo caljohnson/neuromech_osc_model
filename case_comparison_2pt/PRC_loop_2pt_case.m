@@ -55,7 +55,7 @@ t_f=tau_f; t_n = tau_n; t_m = tau_m; %timescales for length, neural, and muscule
 dt0=1e-4;
 
 %  PRC Code
-for ccc = 1:size(c_MA,2)
+for ccc = 1:size(c_MAs,2)
 
     %set feedback strength according to loop
     c_MA = c_MAs(ccc);

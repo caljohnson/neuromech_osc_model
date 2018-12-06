@@ -5,7 +5,7 @@ clear
 load('PRC_loop_2pt_case.mat');
 
 %  Draw figs
-for ccc = 1:size(c_MA,2)
+for ccc = 1:size(c_MAs,2)
 
     %set feedback strength according to loop
     c_MA = c_MAs(ccc);
