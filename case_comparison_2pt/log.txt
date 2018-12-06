@@ -9,4 +9,45 @@ MATLAB is selecting SOFTWARE OPENGL rendering.
 To get started, type one of these: helpwin, helpdesk, or demo.
 For product information, visit www.mathworks.com.
  
->> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> 
+>> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> 
+dxcrit =
+
+   1.0000e-05
+
+
+dx =
+
+    3.7578
+
+
+dx =
+
+   6.3746e-04
+
+
+dx =
+
+   6.1525e-09
+
+Elapsed time is 21.893018 seconds.
+
+dy =
+
+    2.2360
+
+
+dy =
+
+   5.9828e-05
+
+
+dy =
+
+   2.4656e-09
+
+Elapsed time is 11.457342 seconds.
+Elapsed time is 180.219134 seconds.
+{To use 'cc', the following product must be both licensed and installed:
+  Risk Management Toolbox
+} 
+>> >> >> 
