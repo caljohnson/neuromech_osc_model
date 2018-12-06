@@ -212,12 +212,12 @@ toc
 % title('G-function for NM paired-oscillator model');
 
 %Save stuff for figures later
-vs(cc) = v;
-zs(cc) = v;
-ts(cc) = t;
-g1s(cc) = g1;
-h1ps(cc) = h1p;
-iis(cc) = ii;
+vs(ccc) = v;
+zs(ccc) = v;
+ts(ccc) = t;
+g1s(ccc) = g1;
+h1ps(ccc) = h1p;
+iis(ccc) = ii;
 
 end
 
