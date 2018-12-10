@@ -196,7 +196,7 @@ end;
 % ---------------------
 %mech coupling is symmetric in the pair!
 g1=-B(2,1)*(h1m-h2m);
-clear h1m h1m;
+clear h1m h2m;
 % [~, Indsg1] = sort(abs(g1));
 %prop coupling is not
 % g2 =(h1p-h2p);
