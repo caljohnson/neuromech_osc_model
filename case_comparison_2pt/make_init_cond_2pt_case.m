@@ -13,7 +13,10 @@ if nargin < 3
 end
 
 %turn 0= < phase_diff <= 1 into an indexed phase-diff
-ind_pd = round(T_i*phase_diff);
+ind_pd = round(T_i*phase_diff)+1;
+if ind_pd > T_i %make sure we stay in index array bounds
+    ind_pd = T_i;
+end
 
 %IC - phase_diff between the two modules
 K_0 = zeros(2,1);
