@@ -104,6 +104,7 @@ ii=ii-1;
 v2(1:ii-imin+1,1:nv)=v(imin:ii,1:nv);
 v2(ii-imin+2:ii,1:nv)=v(1:imin-1,1:nv);
 v=v2;
+clear v2;
 
 % %display result
 % figure(1); clf;

@@ -31,7 +31,7 @@ subplot(4,1,4); plot(tanh(v(:,4)-2)+1, 'g','Linewidth', 4); hold on; plot(tanh(v
 ylabel('\sigma(A)'); legend('V', 'D');
 figtitle = strcat('Cycle timetraces, c = ', num2str(c));
 suptitle(figtitle);
-saveas(strcat('PRCfigs/', strcat(figtitle, '.png')));
+saveas(gcf, strcat('PRCfigs/cycles/', strcat(figtitle, '.png')));
 
 
 
@@ -45,20 +45,20 @@ subplot(3,1,2); plot(z(:,2), 'g', 'Linewidth', 4); hold on; plot(z(:,3), 'r','Li
 ylabel('V'); legend('V', 'D');
 subplot(3,1,3); plot(z(:,4), 'g','Linewidth', 4); hold on; plot(z(:,5), 'r','Linewidth', 4); 
 ylabel('A'); legend('V', 'D');
-saveas(strcat('PRCfigs/',strcat(figtitle, '.png')));
+saveas(gcf, strcat('PRCfigs/PRCs/',strcat(figtitle, '.png')));
 
 % ---- III.  CALCULATE G-FUNCTION  ----
 figure(3); clf;
-plot(t(1:ii),g1,'r', 'linewidth',2); hold on; 
-plot(t(1:ii),h1p,'g', 'linewidth',2);
+plot(g1,'r', 'linewidth',2); hold on; 
+plot(h1p,'g', 'linewidth',2);
 plot([0,p],[0,0],'k:','linewidth',2);
-plot(t(Indsg1(1:3)),0*Indsg1(1:3),'ko','Markersize',10);
-plot(t(Indsh1p(1:2)),0*Indsh1p(1:2),'ko','Markersize',10);
+% plot(t(Indsg1(1:3)),0*Indsg1(1:3),'ko','Markersize',10);
+% plot(t(Indsh1p(1:2)),0*Indsh1p(1:2),'ko','Markersize',10);
 legend('mechanical','proprioceptive','"zero"');
-xlabel('time(ms)'); 
+xlabel('time'); 
 figtitle = strcat('G-function for NM paired-oscillator model, c = ', num2str(c));
 title(figtitle);
-saveas(strcat('PRCfigs/',strcat(figtitle, '.png')));
+saveas(gcf, strcat('PRCfigs/gfns/',strcat(figtitle, '.png')));
 
 end
 
