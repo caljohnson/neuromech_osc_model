@@ -10,7 +10,10 @@ To get started, type one of these: helpwin, helpdesk, or demo.
 For product information, visit www.mathworks.com.
  
 >> >> >> >> >> >> >> >> >> >> >> >> >> >> running fully coupled ODE simulation
-{Undefined function or variable 'v'.
+{Subscript indices must either be real positive integers or logicals.
+
+Error in make_init_cond_2pt_case (line 33)
+    K_0(2) = cycle(ind_pd,1);
 } 
 >> >> {Error using save
 Variable 'p_diffs' not found.
