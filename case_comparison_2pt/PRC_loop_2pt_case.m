@@ -149,7 +149,7 @@ sc(k)=z0(k,1:nv)*transpose(dv(k,1:nv));
 end;
 sc0=median(sc);
 z=z/sc0;
-
+clear z0 sc;
 % %display result
 % figure(2); clf; xlim([0, ii*dt]); suptitle('PRCs');
 % subplot(3,1,1); plot(z(:,1), 'Linewidth', 4); ylabel('\kappa');
