@@ -49,11 +49,14 @@ saveas(gcf, strcat('PRCfigs/PRCs/',strcat(figtitle, '.png')));
 
 % ---- III.  CALCULATE G-FUNCTION  ----
 figure(3); clf;
+tol = 1e-6;
 plot(g1,'r', 'linewidth',2); hold on; 
 plot(h1p,'g', 'linewidth',2);
-plot([0,p],[0,0],'k:','linewidth',2);
+plot([0,size(g1,2)],[0,0],'k:','linewidth',2);
 % plot(t(Indsg1(1:3)),0*Indsg1(1:3),'ko','Markersize',10);
 % plot(t(Indsh1p(1:2)),0*Indsh1p(1:2),'ko','Markersize',10);
+plot(find(abs(g1)<=tol),0*find(abs(g1)<=tol),'ko','Markersize',10);
+plot(find(abs(h1p)<=tol),0*find(abs(h1p)<=tol),'ko','Markersize',10);
 legend('mechanical','proprioceptive','"zero"');
 xlabel('time'); 
 figtitle = strcat('G-function for NM paired-oscillator model, c = ', num2str(c));
