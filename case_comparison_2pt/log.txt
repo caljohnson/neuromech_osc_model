@@ -29,7 +29,7 @@ dx =
 
    6.1525e-09
 
-Elapsed time is 9.792935 seconds.
+Elapsed time is 12.612408 seconds.
 
 dy =
 
@@ -45,8 +45,8 @@ dy =
 
    2.4656e-09
 
-Elapsed time is 11.421668 seconds.
-Elapsed time is 169.339416 seconds.
+Elapsed time is 15.550192 seconds.
+Elapsed time is 171.288247 seconds.
 
 dxcrit =
 
@@ -67,7 +67,7 @@ dx =
 
    1.4388e-07
 
-Elapsed time is 7.716630 seconds.
+Elapsed time is 8.545451 seconds.
 
 dy =
 
@@ -83,7 +83,360 @@ dy =
 
    9.1874e-08
 
-Elapsed time is 9.362957 seconds.
-{Matrix dimensions must agree.
-} 
+Elapsed time is 10.204034 seconds.
+Elapsed time is 124.184362 seconds.
+
+dxcrit =
+
+   1.0000e-05
+
+
+dx =
+
+    3.7105
+
+
+dx =
+
+    0.0042
+
+
+dx =
+
+   8.6822e-07
+
+Elapsed time is 7.511701 seconds.
+
+dy =
+
+    2.2354
+
+
+dy =
+
+   9.7481e-04
+
+
+dy =
+
+   6.5312e-07
+
+Elapsed time is 8.953296 seconds.
+Elapsed time is 93.815877 seconds.
+
+dxcrit =
+
+   1.0000e-05
+
+
+dx =
+
+    3.6837
+
+
+dx =
+
+    0.0066
+
+
+dx =
+
+   2.8714e-06
+
+Elapsed time is 6.843463 seconds.
+
+dy =
+
+    2.2347
+
+
+dy =
+
+    0.0019
+
+
+dy =
+
+   2.3739e-06
+
+Elapsed time is 8.076779 seconds.
+Elapsed time is 79.422215 seconds.
+
+dxcrit =
+
+   1.0000e-05
+
+
+dx =
+
+    3.6576
+
+
+dx =
+
+    0.0092
+
+
+dx =
+
+   6.8580e-06
+
+Elapsed time is 6.327921 seconds.
+
+dy =
+
+    2.2339
+
+
+dy =
+
+    0.0030
+
+
+dy =
+
+   6.0264e-06
+
+Elapsed time is 7.527561 seconds.
+Elapsed time is 68.070072 seconds.
+
+dxcrit =
+
+   1.0000e-05
+
+
+dx =
+
+    3.6330
+
+
+dx =
+
+    0.0118
+
+
+dx =
+
+   1.3408e-05
+
+
+dx =
+
+   1.5212e-08
+
+Elapsed time is 8.012075 seconds.
+
+dy =
+
+    2.2330
+
+
+dy =
+
+    0.0043
+
+
+dy =
+
+   1.2319e-05
+
+
+dy =
+
+   3.7967e-08
+
+Elapsed time is 9.595234 seconds.
+Elapsed time is 62.214517 seconds.
+
+dxcrit =
+
+   1.0000e-05
+
+
+dx =
+
+    3.6098
+
+
+dx =
+
+    0.0145
+
+
+dx =
+
+   2.2949e-05
+
+
+dx =
+
+   3.6371e-08
+
+Elapsed time is 7.756290 seconds.
+
+dy =
+
+    2.2319
+
+
+dy =
+
+    0.0057
+
+
+dy =
+
+   2.1815e-05
+
+
+dy =
+
+   8.7156e-08
+
+Elapsed time is 9.088208 seconds.
+Elapsed time is 55.880427 seconds.
+
+dxcrit =
+
+   1.0000e-05
+
+
+dx =
+
+    3.5881
+
+
+dx =
+
+    0.0172
+
+
+dx =
+
+   3.5765e-05
+
+
+dx =
+
+   7.5401e-08
+
+Elapsed time is 7.338757 seconds.
+
+dy =
+
+    2.2308
+
+
+dy =
+
+    0.0072
+
+
+dy =
+
+   3.4935e-05
+
+
+dy =
+
+   1.7578e-07
+
+Elapsed time is 8.734122 seconds.
+Elapsed time is 49.926829 seconds.
+
+dxcrit =
+
+   1.0000e-05
+
+
+dx =
+
+    3.5678
+
+
+dx =
+
+    0.0198
+
+
+dx =
+
+   5.2023e-05
+
+
+dx =
+
+   1.3836e-07
+
+Elapsed time is 7.119518 seconds.
+
+dy =
+
+    2.2296
+
+
+dy =
+
+    0.0088
+
+
+dy =
+
+   5.1984e-05
+
+
+dy =
+
+   3.1885e-07
+
+Elapsed time is 8.340138 seconds.
+Elapsed time is 46.836038 seconds.
+
+dxcrit =
+
+   1.0000e-05
+
+
+dx =
+
+    3.5487
+
+
+dx =
+
+    0.0224
+
+
+dx =
+
+   7.1803e-05
+
+
+dx =
+
+   2.3319e-07
+
+Elapsed time is 6.811675 seconds.
+
+dy =
+
+    2.2283
+
+
+dy =
+
+    0.0105
+
+
+dy =
+
+   7.3148e-05
+
+
+dy =
+
+   5.3197e-07
+
+Elapsed time is 7.915112 seconds.
+Elapsed time is 44.636072 seconds.
 >> >> >> 
