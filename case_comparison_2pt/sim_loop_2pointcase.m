@@ -59,7 +59,7 @@ for ccc = 1:size(c_MAs,2)
     for mm = 1:size(init_phase_diffs,2)-1
         init_phase_diff = init_phase_diffs(mm);
     %make init condition straight from computed LC
-    init_cond = make_init_cond_2pt_case(v, ii, init_phase_diff);
+    init_cond = make_init_cond_2pt_case(cycle, ii, init_phase_diff);
 
     %compile all RHS ode functions into one        
     % X(1:gridsz*dim) = gridsz*dim K variables
