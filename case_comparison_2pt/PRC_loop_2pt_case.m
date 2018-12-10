@@ -74,6 +74,7 @@ x0(1:nv)=[0;1;-1;0;0]; % initial state (K,V1,V2,A1,A2)
 dx=10000.0;  
 dxcrit=1e-5 % precision for periodic orbit
 tic
+v = zeros(nmax, nv);
 while (dx>dxcrit) 
 % iterate until periodic orbit found to desired precision (dxcrit).
     x=x0;
@@ -212,12 +213,14 @@ toc
 % title('G-function for NM paired-oscillator model');
 
 %Save stuff for figures later
-vs(ccc) = v;
-zs(ccc) = v;
-ts(ccc) = t;
-g1s(ccc) = g1;
-h1ps(ccc) = h1p;
-iis(ccc) = ii;
+vs{ccc} = v;
+zs{ccc} = z;
+ts{ccc} = t;
+g1s{ccc} = g1;
+h1ps{ccc} = h1p;
+iis{ccc} = ii;
+
+clear v z t g1 h1p ii;
 
 end
 

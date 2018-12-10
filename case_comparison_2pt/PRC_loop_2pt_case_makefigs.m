@@ -12,12 +12,12 @@ for ccc = 1:size(c_MAs,2)
     c = c_MA;
     
     %Get stuff to plot
-    z = vs(cc);
-    v = zs(cc);
-    t = ts(cc);
-    g1 = g1s(cc);
-    h1p = h1ps(cc);
-    ii = iis(cc);
+    v = vs{ccc};
+    z = zs{ccc};
+    t = ts{ccc};
+    g1 = g1s{ccc};
+    h1p = h1ps{ccc};
+    ii = iis{ccc};
 
 % ----  II.  Draw Cycle ----  
 figure(1); clf;
