@@ -92,4 +92,4 @@ for ccc = 1:size(c_MAs,2)
     toc
 end
 
-save('sim_loop_2pt_case.mat','p_diffs', 'c_MAs', 'init_phase_diffs');
+save('sim_loop_2pt_case_take2.mat','p_diffs', 'c_MAs', 'init_phase_diffs');
