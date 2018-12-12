@@ -13,9 +13,10 @@ addpath('../waveform_data/');
 load('PRC_loop_2pt_case.mat');
 
  %simulation runtime
-TF = 2000; 
+TF = 1e4; 
 max_step = 1e-2; %time interpolation stepsize
 t0 = 0:max_step:TF; %interpolation time steps
+Gamma = 1e3;
 
 %mechanical PDE (gamma/kb I + mu/kb AA')k_t = -AA'(k + cM)
 %Gamma = gamma/kb, tauf = mu/kb
@@ -55,20 +56,11 @@ for ccc = 1:size(c_MAs,2)
     end
 
      %compile all RHS ode functions into one        
-    % X(1:gridsz*dim) = gridsz*dim K variables
-    % X(gridsz*dim+1: gridsz*dim+dim) = dim AV variables
-    % X(gridsz*dim+1+dim: gridsz*dim+2*dim) = dim AD variables
-    % X(gridsz*dim+1+2*dim: gridsz*dim+3*dim) = dim volt_V variables
-    % X(gridsz*dim+1+3*dim: gridsz*dim+4*dim) = dim volt_D variables
-    ode_rhss = @(t,X) [K_dot(t,X(1:gridsz*dim),S*X(gridsz*dim+1: gridsz*dim+dim),...
-                S*X(gridsz*dim+1+dim: gridsz*dim+2*dim)); ...
-        AV_dot(t,X(gridsz*dim+1+2*dim: gridsz*dim+3*dim), ...
-        X(gridsz*dim+1+3*dim: gridsz*dim+4*dim),X(gridsz*dim+1: gridsz*dim+dim));...
-         AD_dot(t,X(gridsz*dim+1+2*dim: gridsz*dim+3*dim), ...
-        X(gridsz*dim+1+3*dim: gridsz*dim+4*dim),X(gridsz*dim+1+dim: gridsz*dim+2*dim));...
-        volt_V_dot(t, Pa*X(1:gridsz*dim), X(gridsz*dim+1+2*dim: gridsz*dim+3*dim));...
-        volt_D_dot(t, Pa*X(1:gridsz*dim), X(gridsz*dim+1+3*dim: gridsz*dim+4*dim));];
-
+    ode_rhss = @(t,X) [K_dot(t,X(1:2),X(3:4),X(5:6)); ...
+        AV_dot(t,X(7:8),X(9:10),X(3:4));...
+         AD_dot(t,X(7:8), X(9:10), X(5:6));...
+        volt_V_dot(t, X(1:2), X(7:8));...
+        volt_D_dot(t, X(1:2), X(9:10));];
 
 
     % ----  I. GET PERIODIC ORBIT  ----
@@ -78,21 +70,26 @@ for ccc = 1:size(c_MAs,2)
     % ODE Simulation Code
     display('running fully coupled ODE simulation');
 
+    %run for diff init phase diffs between the pair
     for mm = 1:size(init_phase_diffs,2)-1
         tic
+        %make init condition straight from computed LC
         init_phase_diff = init_phase_diffs(mm);
-    %make init condition straight from computed LC
-    init_cond = make_init_cond_2pt_case(cycle, ii, init_phase_diff);
-
-
-    [y,t] = run_model(ode_rhss, init_cond);
-   
-    Kappa = y(:, 1:gridsz*dim)';
+        init_cond = make_init_cond_2pt_case(cycle, ii, init_phase_diff);
+        
+        %run simulation
+        [t,y] = ode23s(ode_rhss,[0,TF], init_cond);
+        %sample cycle at even intervals
+        y = interp1(t,y,t0);
+        t = t0;
     
-    p_diffs(ccc,mm) = compute_phase_lag_2pt_case(Kappa);
+        %compute asymptotic phase difference
+        Kappa = y(:, 1:2)';
+        p_diffs(ccc,mm) = compute_phase_lag_2pt_case(Kappa);
     
-    toc
+        toc
+        
     end
 end
 
-save('sim_loop_2pt_case_take2.mat','p_diffs', 'c_MAs', 'init_phase_diffs');
+save('sim_loop_2pt_case_take3.mat','p_diffs', 'c_MAs', 'init_phase_diffs');

@@ -4,11 +4,12 @@ function [ y,t ] = run_model( ode_RHS, init_cond )
 
 global TF t0;
 
-[t,y] = ode23(ode_RHS,[0,TF], init_cond);
+[t,y] = ode23s(ode_RHS,[0,TF], init_cond);
 
 %sample cycle at even intervals
 y = interp1(t,y,t0);
 t = t0;
+
 
 end
 
