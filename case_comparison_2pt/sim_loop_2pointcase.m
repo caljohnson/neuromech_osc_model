@@ -13,10 +13,10 @@ addpath('../waveform_data/');
 load('PRC_loop_2pt_case.mat');
 
  %simulation runtime
-TF = 5e3; 
+TF = 1e4; 
 max_step = 1e-2; %time interpolation stepsize
 t0 = 0:max_step:TF; %interpolation time steps
-Gamma = 1e3;
+Gamma = 1e-1;
 c_MAs = linspace(1.3,10,20); 
 
 %mechanical PDE (gamma/kb I + mu/kb AA')k_t = -AA'(k + cM)
@@ -89,8 +89,8 @@ for ccc = 1:size(c_MAs,2)
         p_diffs(ccc,mm) = compute_phase_lag_2pt_case(Kappa);
     
         toc
-        
+       
     end
 end
 
-save('sim_loop_2pt_case_take4.mat','p_diffs', 'c_MAs', 'init_phase_diffs');
+save('sim_loop_2pt_case_gamma1emin1.mat','p_diffs', 'c_MAs', 'init_phase_diffs');
