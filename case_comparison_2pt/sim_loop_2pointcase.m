@@ -13,10 +13,10 @@ addpath('../waveform_data/');
 load('PRC_loop_2pt_case.mat');
 
  %simulation runtime
-TF = 3e4; 
+TF = 4e4; 
 max_step = 1e-2; %time interpolation stepsize
 t0 = 0:max_step:TF; %interpolation time steps
-Gamma = 1e-2;
+Gamma = 1e-3;
 c_MAs = linspace(1.3,5,10); 
 
 %mechanical PDE (gamma/kb I + mu/kb AA')k_t = -AA'(k + cM)
@@ -37,10 +37,10 @@ AV_dot = @(t,volt_V, volt_D, A) (1/tau_m).*(volt_V - volt_D - A);
 AD_dot = @(t,volt_V, volt_D, A) (1/tau_m).*(volt_D - volt_V - A);
 
 %%%%initial phase_diffs
-init_phase_diffs = linspace(0,1,21);
+init_phase_diffs = linspace(0,0.5,10);
 
 %matrix to capture asympototic phase differences
-p_diffs = zeros(size(c_MAs,2), size(init_phase_diffs,2)-1);
+p_diffs = zeros(size(c_MAs,2), size(init_phase_diffs,2));
 
 % ODE simulation code
 for ccc = 1:size(c_MAs,2)
@@ -72,7 +72,7 @@ for ccc = 1:size(c_MAs,2)
     display('running fully coupled ODE simulation');
 
     %run for diff init phase diffs between the pair
-    for mm = 1:size(init_phase_diffs,2)-1
+    for mm = 1:size(init_phase_diffs,2)
         tic
         %make init condition straight from computed LC
         init_phase_diff = init_phase_diffs(mm);
@@ -93,4 +93,4 @@ for ccc = 1:size(c_MAs,2)
     end
 end
 
-save('sim_loop_2pt_case_gamma1emin2.mat','p_diffs', 'c_MAs', 'init_phase_diffs');
+save('sim_loop_2pt_case_gamma1emin3.mat','p_diffs', 'c_MAs', 'init_phase_diffs');

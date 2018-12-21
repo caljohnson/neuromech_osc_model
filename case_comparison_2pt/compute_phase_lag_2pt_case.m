@@ -18,7 +18,7 @@ if nargin < 2
 end
 
 %get second-half of time series
-Kappa = Kappa(1:end,(TF/max_step)/2:TF/max_step-1);
+Kappa = Kappa(1:end,9*(TF/max_step)/10:TF/max_step-1);
 %get autocorrelation of first oscillator
 control_corr =  xcorr(Kappa(1,:));
 %find peaks of autocorr
