@@ -89,7 +89,7 @@ for ccc = 1:size(c_MAs,2)
         Kappa = y(:, 1:2)';
         temp_p_diffs = compute_phase_lag_2pt_case(Kappa);
         init_cond = y(end,:);
-        p_diffs(cc,mm) = 100;
+        p_diffs(ccc,mm) = 100;
         loop_counter = 1;
         %loop until phase difference stable
         while abs(temp_p_diffs - p_diffs(cc,mm))>1e-1 && lmno < 100
