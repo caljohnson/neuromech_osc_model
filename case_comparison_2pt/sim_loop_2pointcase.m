@@ -12,8 +12,9 @@ addpath('../waveform_data/');
 
 load('PRC_loop_2pt_case.mat');
 
- %simulation runtime
-TF = 4e4; 
+%simulation runtime
+Tmax = 4e4; 
+TF = Tmax/100;
 max_step = 1e-2; %time interpolation stepsize
 t0 = 0:max_step:TF; %interpolation time steps
 Gamma = 1e-3;
@@ -83,13 +84,27 @@ for ccc = 1:size(c_MAs,2)
         %sample cycle at even intervals
         y = interp1(t,y,t0);
         t = t0;
-    
+
         %compute asymptotic phase difference
         Kappa = y(:, 1:2)';
-        p_diffs(ccc,mm) = compute_phase_lag_2pt_case(Kappa);
-    
-        toc
-       
+        temp_p_diffs = compute_phase_lag_2pt_case(Kappa);
+        init_cond = y(end,:);
+        p_diffs(cc,mm) = 100;
+        loop_counter = 1;
+        %loop until phase difference stable
+        while abs(temp_p_diffs - p_diffs(cc,mm))>1e-1 && lmno < 100
+            %run simulation
+            [t,y] = ode23s(ode_rhss,[0,TF], init_cond);
+            %sample cycle at even intervals
+            y = interp1(t,y,t0);
+            t = t0;
+            %compute asymptotic phase difference
+            Kappa = y(:, 1:2)';
+            p_diffs(ccc,mm) = compute_phase_lag_2pt_case(Kappa);
+            init_cond = y(end,:);
+            loop_counter = loop_counter+1;
+            toc
+        end
     end
 end
 
