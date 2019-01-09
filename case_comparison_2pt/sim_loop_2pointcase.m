@@ -92,7 +92,7 @@ for ccc = 1:size(c_MAs,2)
         p_diffs(ccc,mm) = 100;
         loop_counter = 1;
         %loop until phase difference stable
-        while abs(temp_p_diffs - p_diffs(cc,mm))>1e-1 && lmno < 100
+        while abs(temp_p_diffs - p_diffs(ccc,mm))>1e-1 && loop_counter < 100
             %run simulation
             [t,y] = ode23s(ode_rhss,[0,TF], init_cond);
             %sample cycle at even intervals
