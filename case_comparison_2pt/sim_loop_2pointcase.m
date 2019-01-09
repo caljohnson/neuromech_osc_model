@@ -92,7 +92,8 @@ for ccc = 1:size(c_MAs,2)
         p_diffs(ccc,mm) = 100;
         loop_counter = 1;
         %loop until phase difference stable
-        while abs(temp_p_diffs - p_diffs(ccc,mm))>1e-1 && loop_counter < 100
+        while abs(temp_p_diffs - p_diffs(ccc,mm))>1e-2 && loop_counter < 100
+            p_diffs(ccc,mm) = temp_p_diffs;
             %run simulation
             [t,y] = ode23s(ode_rhss,[0,TF], init_cond);
             %sample cycle at even intervals
@@ -100,7 +101,7 @@ for ccc = 1:size(c_MAs,2)
             t = t0;
             %compute asymptotic phase difference
             Kappa = y(:, 1:2)';
-            p_diffs(ccc,mm) = compute_phase_lag_2pt_case(Kappa);
+            temp_p_diffs = compute_phase_lag_2pt_case(Kappa);
             init_cond = y(end,:);
             loop_counter = loop_counter+1;
             toc
